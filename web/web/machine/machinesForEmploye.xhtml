@@ -1,0 +1,39 @@
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Machines for Employes</title>
+    </h:head>
+    <h:body>
+        <h2>Machines attribuées à chaque employé</h2>
+
+        <p:dataTable var="employe" value="#{employeController.items}" 
+                     paginator="true" rows="10" emptyMessage="Aucun employé trouvé">
+            <p:column headerText="Nom">
+                #{employe.nom}
+            </p:column>
+            <p:column headerText="Prénom">
+                #{employe.prenom}
+            </p:column>
+            <p:column headerText="Machines attribuées">
+                <p:dataTable var="machine" value="#{employe.machineList}" 
+                             rendered="#{not empty employe.machineList}">
+                    <p:column headerText="Marque">
+                        #{machine.marque}
+                    </p:column>
+                    <p:column headerText="Prix">
+                        #{machine.prix}
+                    </p:column>
+                    <!-- Ajoutez d'autres colonnes selon vos besoins -->
+                </p:dataTable>
+                <p:outputLabel value="Aucune machine attribuée" rendered="#{empty employe.machineList}" />
+            </p:column>
+        </p:dataTable>
+
+        <br />
+        <h:link outcome="/faces/web/employe/List" value="Retour à la liste des employés"/>
+    </h:body>
+</html>
